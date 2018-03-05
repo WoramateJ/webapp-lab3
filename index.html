@@ -2,17 +2,136 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <title>The game thing</title>
   </head>
   <body>
-    <p id="aP">Hello world</p>
+    <div id="app">
+      <div class="container has-text-centered">
+        <div v-if="currentState === 'index'">
+          <h1 class="header">How many questions you want to answer?</h1>
+          <div class="columns">
+            <div class="column has-text-centered" v-for="preset in questionPresets">
+              <button class="button is-primary is-large" type="button" @click="selectPreset(preset)">{{ preset.text }}</button>
+            </div>
+          </div>
+        </div>
+        <div v-if="currentState === 'play'">
+          <div class="columns">
+            <div class="column has-text-centered">
+              <h1>{{ currentQuestion.quest }}</h1>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column" v-for="choice in currentQuestion.choices">
+              <div class="card clickable" @click="selectAnswer(choice)">
+                <div class="card-image" v-if="choice.img">
+                  <figure class="image">
+                    <img :src="choice.img">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="content has-text-centered">
+                    <h2>{{ choice.text }}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <script>
-  $(document).ready(function() {
-    $("#aP").click(() => {
-      $("#aP").text("test")
-    })
+  var app = new Vue({
+    el: '#app',
+    data: {
+      currentState: '',
+      currentQuestionPreset: {},
+      questionPresets: [
+        {
+          text: '5 Questions',
+          name: '5q'
+        },
+        {
+          text: '10 Questions',
+          name: '10q'
+        },
+        {
+          text: '15 Questions',
+          name: '15q'
+        }
+      ],
+      currentQuestion: {},
+      questions: [
+        {
+          quest: 'Which one is the world\'s biggest island?',
+          choices: [
+            {
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2IuhWaXZojgw_Kmzl57hMBj1kUV_g8rbcSIpqilB1Pf7IpSIl',
+              text: 'Greenland',
+              correct: true
+            },
+            {
+              img: 'http://www.urbanrail.net/as/sing/singapore-map.png',
+              text: 'Singapore'
+            },
+            {
+              img: 'http://static.studyin-uk.com/assets/images/uk-universities-map2016.jpg',
+              text: 'UK'
+            },
+            {
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6DParC_hVEcCjxS75m5ApkepbCBv51CPx2gKFh21FdYSa0tezLg',
+              text: 'Japan'
+            }
+          ]
+        },
+        {
+          quest: 'When was William Shakespeare born? 23rd April 1564',
+          choices: [
+            {
+              text: '23rd April 1546'
+            },
+            {
+              text: '23rd April 1645'
+            },
+            {
+              text: '23rd April 1564',
+              correct: true
+            },
+            {
+              text: '23rd April 1465'
+            }
+          ]
+        }
+      ]
+    },
+    created() {
+      this.currentState = 'index'
+    },
+    methods: {
+      selectPreset(preset) {
+        this.currentQuestionPreset = preset
+        this.currentState = 'play'
+        this.currentQuestion = this.questions[0]
+      },
+      selectChoice(choice) {
+
+      }
+    }
   })
   </script>
+  <style>
+  .header {
+    font-size: 2rem;
+    margin: 2rem;
+  }
+  .button {
+    margin: 0 5px;
+  }
+  .clickable {
+    cursor: pointer;
+  }
+  </style>
 </html>
