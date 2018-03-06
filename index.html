@@ -20,12 +20,13 @@
         <div v-if="currentState === 'play'">
           <div class="columns">
             <div class="column has-text-centered">
-              <h1>{{ currentQuestion.quest }}</h1>
+              <h1 class="header"><span class="question-number">{{ currentQuestionIndex+1 }}</span> {{ currentQuestion.quest }} score: {{ score }}</h1>
+              <progress class="progress" :value="currentQuestionIndex+1" :max="currentQuestionPreset.questions"></progress>
             </div>
           </div>
           <div class="columns">
             <div class="column" v-for="choice in currentQuestion.choices">
-              <div class="card clickable" @click="selectAnswer(choice)">
+              <div class="card clickable" @click="selectChoice(choice)">
                 <div class="card-image" v-if="choice.img">
                   <figure class="image">
                     <img :src="choice.img">
@@ -48,21 +49,26 @@
     el: '#app',
     data: {
       currentState: '',
+      score: 0,
       currentQuestionPreset: {},
       questionPresets: [
         {
           text: '5 Questions',
-          name: '5q'
+          name: '5q',
+          questions: 5
         },
         {
           text: '10 Questions',
-          name: '10q'
+          name: '10q',
+          questions: 10
         },
         {
           text: '15 Questions',
-          name: '15q'
+          name: '15q',
+          questions: 15
         }
       ],
+      currentQuestionIndex: 0,
       currentQuestion: {},
       questions: [
         {
@@ -88,7 +94,7 @@
           ]
         },
         {
-          quest: 'When was William Shakespeare born? 23rd April 1564',
+          quest: 'When was William Shakespeare born?',
           choices: [
             {
               text: '23rd April 1546'
@@ -114,15 +120,30 @@
       selectPreset(preset) {
         this.currentQuestionPreset = preset
         this.currentState = 'play'
-        this.currentQuestion = this.questions[0]
+        this.setCurrentQuestionByIndex(this.currentQuestionIndex)
+      },
+      setCurrentQuestionByIndex(index) {
+        this.currentQuestion = this.questions[this.currentQuestionIndex]
       },
       selectChoice(choice) {
-
+        if (choice.correct) this.score += 1
+        this.currentQuestionIndex += 1
+        this.setCurrentQuestionByIndex(this.currentQuestionIndex)
       }
     }
   })
   </script>
   <style>
+  h1 {
+    font-size: 2rem;
+  }
+  .question-number {
+    border-radius: 1.75rem;
+    background-color: #0264ec;
+    color: rgb(255, 255, 255);
+    max-width: 3.5rem;
+    min-height: 3.5rem;
+  }
   .header {
     font-size: 2rem;
     margin: 2rem;
