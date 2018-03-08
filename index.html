@@ -22,6 +22,9 @@
             <div class="column has-text-centered">
               <h1 class="header"><span class="question-number">{{ currentQuestionIndex+1 }}</span> {{ currentQuestion.quest }} score: {{ score }}</h1>
               <progress class="progress" :value="currentQuestionIndex+1" :max="currentQuestionPreset.questions"></progress>
+              <figure class="image" v-if="currentQuestion.img">
+                <img :src="currentQuestion.img">
+              </figure>
             </div>
           </div>
           <div class="columns">
@@ -32,7 +35,7 @@
                     <img :src="choice.img">
                   </figure>
                 </div>
-                <div class="card-content">
+                <div class="card-content" :style="{ 'background-color': choice.color }">
                   <div class="content has-text-centered">
                     <h2>{{ choice.text }}</h2>
                   </div>
@@ -108,6 +111,291 @@
             },
             {
               text: '23rd April 1465'
+            }
+          ]
+        },
+        {
+          quest: 'Where would you find the Sea of Tranquility?',
+          choices: [
+            {
+              text: 'Africa',
+              img: 'https://www.africaguide.com/image/maps/africa_relief_map.jpg'
+            },
+            {
+              text: 'London',
+              img: 'https://media-cdn.tripadvisor.com/media/photo-s/0e/62/62/df/london.jpg'
+            },
+            {
+              text: 'Michigan',
+              img: 'http://ontheworldmap.com/usa/state/michigan/michigan-location-on-the-us-map.jpg'
+            },
+            {
+              text: 'The Moon',
+              img: 'http://www.moongiant.com/birthday-moon/Full-Moon.jpg',
+              correct: true
+            }
+          ]
+        },
+        {
+          quest: 'Which country is Prague in?',
+          choices: [
+            {
+              text: 'Czech Republic',
+              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_Czech_Republic.svg/255px-Flag_of_the_Czech_Republic.svg.png',
+              correct: true
+            },
+            {
+              text: 'Austria',
+              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/255px-Flag_of_Austria.svg.png'
+            },
+            {
+              text: 'Hungary',
+              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Flag_of_Hungary_with_arms.svg/1280px-Flag_of_Hungary_with_arms.svg.png'
+            },
+            {
+              text: 'Slovakia',
+              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Flag_of_Slovakia.svg/1280px-Flag_of_Slovakia.svg.png'
+            }
+          ]
+        },
+        {
+          quest: 'What colour is a Himalayan poppy?',
+          choices: [
+            {
+              text: 'Red',
+              color: 'red'
+            },
+            {
+              text: 'Blue',
+              color: 'blue',
+              correct: true
+            },
+            {
+              text: 'Green',
+              color: 'green'
+            },
+            {
+              text: 'Yellow',
+              color: 'yellow'
+            }
+          ]
+        },
+        {
+          quest: 'What colour is a Welsh poppy?',
+          choices: [
+            {
+              text: 'Red',
+              color: 'red'
+            },
+            {
+              text: 'Blue',
+              color: 'blue'
+            },
+            {
+              text: 'Green',
+              color: 'green'
+            },
+            {
+              text: 'Yellow',
+              color: 'yellow',
+              correct: true
+            }
+          ]
+        },
+        {
+          quest: 'Which sport does Constantino Rocca play?',
+          choices: [
+            {
+              text: 'Football',
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4a5B2Egb5NaeCZnUOinOXcppeWFAguDLWRLosbAZu8kRoU47'
+            },
+            {
+              text: 'Swimming',
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQogNAa5n23iyeqBOWMk6RE96qNW-hm9ZYZLcm30_0s9vBph-4cPA'
+            },
+            {
+              text: 'Golf',
+              img: 'https://www.kettlemorainegolf.com/images/buttons/banner_button_4.jpg',
+              correct: true
+            },
+            {
+              text: 'Tennis',
+              img: 'https://nbcothersports.files.wordpress.com/2017/12/azarenka.jpg?w=1200'
+            }
+          ]
+        },
+        {
+          quest: 'How many valves does a trumpet have?',
+          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUIwwgVFxw1Wop5c6RKG6cJQp5Xc2DV5nJk8Tjc3dxSQ5CBB6F',
+          choices: [
+            {
+              text: 'One'
+            },
+            {
+              text: 'Two'
+            },
+            {
+              text: 'Three',
+              correct: true
+            },
+            {
+              text: 'Four'
+            },
+            {
+              text: 'Five'
+            },
+            {
+              text: 'I love you'
+            }
+          ]
+        },
+        {
+          quest: 'When did the Cold War end?',
+          choices: [
+            {
+              text: '1998'
+            },
+            {
+              text: '1898'
+            },
+            {
+              text: '1889'
+            },
+            {
+              text: '1989',
+              correct: true
+            }
+          ]
+        },
+        {
+          quest: 'What colour is Absynthe?',
+          choices: [
+            {
+              text: 'Green',
+              color: 'green',
+              correct: true
+            },
+            {
+              text: 'Clear',
+              color: 'white'
+            },
+            {
+              text: 'Blue',
+              color: 'blue'
+            },
+            {
+              text: 'Yellow',
+              color: 'yellow'
+            }
+          ]
+        },
+        {
+          quest: 'May Queen, Wisley Crab, Foxwhelps and Lane\'s Prince Albert are all species of what?',
+          choices: [
+            {
+              text: 'Orange',
+              img: '  https://media.istockphoto.com/photos/orange-picture-id185284489'
+            },
+            {
+              text: 'Strawberry',
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp9vYBmZcgARdFjupiNUx3FH8iKUxgPJrdcmRxuiVWLfDNt7B0'
+            },
+            {
+              text: 'Apple',
+              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1200px-Apple_logo_black.svg.png',
+              correct: true
+            },
+            {
+              text: 'Grape',
+              img: 'https://www.organicfacts.net/wp-content/uploads/2013/05/Grapes11.jpg'
+            }
+          ]
+        },
+        {
+          quest: 'Which kind of bulbs were once exchanged as a form of currency?',
+          choices: [
+            {
+              text: 'Casava',
+              img: 'https://pioneerwoman.files.wordpress.com/2016/06/cassava-yuca-101-04.jpg'
+            },
+            {
+              text: 'Taro',
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS86kvlvcuUIe87medsCNxCvcIfWf6lm2rdHGzI-1TelU90bhknNA'
+            },
+            {
+              text: 'Tulip',
+              img: 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX2327076.jpg',
+              correct: true
+            },
+            {
+              text: 'Beatroot',
+              img: 'http://eboxmart.com/media/catalog/product/cache/1/small_image/300x365/9df78eab33525d08d6e5fb8d27136e95/b/e/beatroot_chakundar_.jpg'
+            }
+          ]
+        },
+        {
+          quest: 'Who played Neo in The Matrix? Keanu Reeves.',
+          choices: [
+            {
+              text: 'Matt Demon',
+              img: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTM0NzYzNDgxMl5BMl5BanBnXkFtZTcwMDg2MTMyMw@@._V1_UY317_CR11,0,214,317_AL_.jpg'
+            },
+            {
+              text: 'Keanu Reeves',
+              img: 'https://images-na.ssl-images-amazon.com/images/M/MV5BNjUxNDcwMTg4Ml5BMl5BanBnXkFtZTcwMjU4NDYyOA@@._V1_UY317_CR15,0,214,317_AL_.jpg',
+              correct: true
+            },
+            {
+              text: 'Samuel L. Jackson',
+              img: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ1NTQwMTYxNl5BMl5BanBnXkFtZTYwMjA1MzY1._V1_UX214_CR0,0,214,317_AL_.jpg'
+            },
+            {
+              text: 'Leonardo DiCaprio',
+              img: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMjI0MTg3MzI0M15BMl5BanBnXkFtZTcwMzQyODU2Mw@@._V1_UY317_CR10,0,214,317_AL_.jpg'
+            }
+          ]
+        },
+        {
+          quest: 'Which British cities doesn\'t have underground rail systems?',
+          choices: [
+            {
+              text: 'Liverpool',
+              img: 'http://assets.lfcimages.com/images/international/thumb-no-image-3.jpg'
+            },
+            {
+              text: 'Newcastle',
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4aSKm0GWwX5nrjwNOcNm9SU8rBlvy2lBXeInWuFyxLQi4bO89'
+            },
+            {
+              text: 'Cambridge',
+              img: 'https://yt3.ggpht.com/a-/AJLlDp0IQ1R7TvNEXaUCbiU1ARISdrLskoUQXLFaFQ=s900-mo-c-c0xffffffff-rj-k-no',
+              correct: true
+            },
+            {
+              text: 'Glasgow',
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvLSMaDpTkVerPQ0qhfKoHRR5O7OauIK23Vrv_8Kl1L7D_BD0N'
+            }
+          ]
+        },
+        {
+          quest: 'In 2011, which country hosted a Formula 1 race for the first time?',
+          choices: [
+            {
+              text: 'India',
+              img: 'https://upload.wikimedia.org/wikipedia/en/c/cf/Indian_GP_Logo_-_Buddh_International_Circuit.jpg',
+              correct: true
+            },
+            {
+              text: 'UK',
+              img: 'https://www.the-mia.com/assets/Silverstone_-_horizontal.jpg'
+            },
+            {
+              text: 'Italy',
+              img: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Autodromo_Nazionale_Monza_circuit_logo.png'
+            },
+            {
+              text: 'Singapore',
+              img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiFn0eHTpGgs2qOIfAuQY5BiOk2lMl7Kg_BBg2oZsoeHG46Zr7'
             }
           ]
         }
