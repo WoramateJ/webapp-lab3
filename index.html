@@ -11,6 +11,7 @@
       <div class="container has-text-centered">
         <div v-if="currentState === 'index'">
           <h1 class="header">How many questions you want to answer?</h1>
+          <img src="https://atmanco.com/wp-content/uploads/2015/12/questions-to-ask.png">
           <div class="columns">
             <div class="column has-text-centered" v-for="preset in questionPresets">
               <button class="button is-primary is-large" type="button" @click="selectPreset(preset)">{{ preset.text }}</button>
@@ -20,8 +21,8 @@
         <div v-if="currentState === 'play'">
           <div class="columns">
             <div class="column has-text-centered">
-              <h1 class="header"><span class="question-number">{{ currentQuestionIndex+1 }}</span> {{ currentQuestion.quest }} score: {{ score }}</h1>
-              <progress class="progress" :value="currentQuestionIndex+1" :max="currentQuestionPreset.questions"></progress>
+              <h1 class="header"><span class="question-number"> {{ currentQuestionIndex+1 }} </span> {{ currentQuestion.quest }}</h1>
+              <progress class="progress" :value="time" max="15"></progress>
               <figure class="image" v-if="currentQuestion.img">
                 <img :src="currentQuestion.img">
               </figure>
@@ -44,6 +45,35 @@
             </div>
           </div>
         </div>
+        <div v-if="currentState ==='finish'">
+          <div class="columns">
+            <div class="column">
+              <h1>Finishhhhhhhhhhhh</h1>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <p class="title is-4">Score</p>
+                  <div class="content">
+                    <h1>{{ score }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <p class="title is-4">Total time</p>
+                  <div class="content">
+                    <h1>{{ totalTime }}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
@@ -52,6 +82,10 @@
     el: '#app',
     data: {
       currentState: '',
+      interval: null,
+      totalTime: 0,
+      totalTimeFinal: 0,
+      time: 0,
       score: 0,
       currentQuestionPreset: {},
       questionPresets: [
@@ -401,13 +435,24 @@
         }
       ]
     },
+    watch: {
+      time() {
+        if (this.currentState === 'play' && this.time > 15) this.selectChoice({})
+      }
+    },
     created() {
       this.currentState = 'index'
+      this.interval = setInterval(() => {
+        this.time += 1
+        this.totalTime += 1
+      }, 1000);
     },
     methods: {
       selectPreset(preset) {
         this.currentQuestionPreset = preset
         this.currentState = 'play'
+        this.time = 0
+        this.totalTime = 0
         this.setCurrentQuestionByIndex(this.currentQuestionIndex)
       },
       setCurrentQuestionByIndex(index) {
@@ -416,7 +461,14 @@
       selectChoice(choice) {
         if (choice.correct) this.score += 1
         this.currentQuestionIndex += 1
-        this.setCurrentQuestionByIndex(this.currentQuestionIndex)
+        if (this.currentQuestionIndex+1 > this.currentQuestionPreset.questions) {
+          this.currentState = 'finish'
+          clearInterval(this.interval)
+        }
+        else {
+          this.setCurrentQuestionByIndex(this.currentQuestionIndex)
+          this.time = 0
+        }
       }
     }
   })
